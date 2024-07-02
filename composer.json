@@ -16,6 +16,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "symfony/dotenv": "^6.0"
+        "symfony/dotenv": "^6.0",
+        "robmorgan/phinx": "^0.14.0"
     }
 }
