@@ -1,0 +1,21 @@
+{
+    "name": "juan/test",
+    "description": "A simple way to use php without framework",
+    "type": "project",
+    "license": "propietary",
+    "autoload": {
+        "psr-4": {
+            "Juan\\Test\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jose-Oquendo",
+            "email": "oquendojuanjose@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "symfony/dotenv": "^6.0"
+    }
+}

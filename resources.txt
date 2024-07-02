@@ -1,0 +1,7 @@
+Composer version 2.7.6 2024-05-04 23:03:15
+
+PHP 8.0.10 (cli) (built: Aug 25 2021 08:46:03) ( ZTS Visual C++ 2019 x64 )
+Copyright (c) The PHP Group
+Zend Engine v4.0.10, Copyright (c) Zend Technologies
+
+Using version ^6.0 for symfony/dotenv
