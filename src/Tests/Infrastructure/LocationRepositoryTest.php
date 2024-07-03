@@ -2,25 +2,63 @@
 declare(Strict_types=1);
 namespace Infrastructure;
 
-final class LocationRepositoyConn extends \PHPUnit\Framework\TestCase
-{
-    private \PDO $conn;
+namespace test\Infrastructure\LocationRepositoryConn;
+namespace test\Domain\Location;
 
-    public function __construct(\PDO $conn)
+final class LocationRepositoryTest extends \PHPUnit\Framework\TestCase
+{
+    public function testSave(): void
     {
-        $this->conn = $conn;
+        $repository = $this->getRepository();
+        $location = $this->getLocationObject();
+
+        $repository->save($location);
+        $this->assertTrue($this->existingDB($lcoation), message: 'El objeto no se ha creado correctamente.');
     }
 
-    public function save(Location $location): void
+    
+    private function getPdo(): \PDO
     {
-        $statement = $this->conn->prepare(query: '
-            INSERT INTO locations (device, lat, lon) VALUES (:dev, :lat, :lon)
-        ');
+        $dsn = sprintf('mysql:host=%s;dbname=%s', $_ENV['DB_HOST'], $_ENV['DB_NAME']); 
+        return new \PDO(
+            $dsn,
+            $_ENV['DB_USER'],
+            $_ENV['DB_PASS'],
+            [
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+            ]
+        );
+    }
+
+    private function getRepository(): LocationRepositoryConn
+    {
+        return new LocationRepositoryConn($this->getPdo());
+    }
+
+    private function getLocationObject(): Location
+    {
+        return new Location(
+            "25769c6c-d34d-4bfe-ba98-e0ee856f3e7a",
+            "12.1111",
+            "12.1111"
+        );
+    }
+
+    private function existingDB(Location $locations): bool
+    { 
+        $statement = $this->getPdo()->prepare("SELECT * 
+        FROM locations 
+            WHERE device = ?
+            AND latitude = ?
+            AND longitude = ?
+        ");
         $statement->execute([
-            'dev' => $location->getDeviceId(),
-            'lat' => $location->getLatitude(),
-            'lon' => $location->getLongitude()
+            $location->getDeviceId(),
+            $location->getLatitude(),
+            $location->getLongitude(),
         ]);
+
+        return $statement->rowCount() == 1;
     }
 }
 
