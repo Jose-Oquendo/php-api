@@ -1,6 +1,6 @@
 <?php
 declare(Strict_types=1);
-namespace test\Infrastracture;
+namespace test\Infrastructure;
 use test\Domain\Location;
 
 final class LocationRepositoyConn implements test\Domain\LocationRepositoyInterface
@@ -15,7 +15,7 @@ final class LocationRepositoyConn implements test\Domain\LocationRepositoyInterf
     public function save(Location $location): void
     {
         $statement = $this->conn->prepare(query: '
-            INSERT INTO locations (id, device, lat, lon) VALUES (:dev, :lat, :lon)
+            INSERT INTO locations (device, lat, lon) VALUES (:dev, :lat, :lon)
         ');
         $statement->execute([
             'dev' => $location->getDeviceId(),
