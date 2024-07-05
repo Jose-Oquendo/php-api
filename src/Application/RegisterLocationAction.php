@@ -1,8 +1,8 @@
 <?php
 declare(Strict_types=1);
-namespace test\Application;
-use test\Domain\Location;
-use test\Domain\LocationRepositoyInterface;
+namespace Juan\Test\Application;
+use Juan\Test\Domain\Location;
+use Juan\Test\Domain\LocationRepositoyInterface;
 
 final class RegisterLcationAction
 {

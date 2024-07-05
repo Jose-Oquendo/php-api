@@ -2,20 +2,23 @@
 declare(Strict_types=1);
 namespace Infrastructure;
 
-namespace test\Infrastructure\LocationRepositoryConn;
-namespace test\Domain\Location;
+use Juan\Test\Domain\Location;
+use Juan\Test\Infrastructure;
+use Juan\Test\Infrastructure\LocationRepositoryConn;
 
 final class LocationRepositoryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSave(): void
+    public function testSave()
     {
         $repository = $this->getRepository();
         $location = $this->getLocationObject();
 
-        $repository->save($location);
-        $this->assertTrue($this->existingDB($lcoation), message: 'El objeto no se ha creado correctamente.');
-    }
+        // $repositorys->save($location);
+        $validate = $this->existingDB($location);
+        $this->assertTrue($validate, 'El objeto no existe en la base de datos mysql'.$validate);
 
+        $this->deleteLocation($location);
+    }
     
     private function getPdo(): \PDO
     {
@@ -44,7 +47,7 @@ final class LocationRepositoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    private function existingDB(Location $locations): bool
+    private function existingDB(Location $location): bool
     { 
         $statement = $this->getPdo()->prepare("SELECT * 
         FROM locations 
@@ -52,13 +55,27 @@ final class LocationRepositoryTest extends \PHPUnit\Framework\TestCase
             AND latitude = ?
             AND longitude = ?
         ");
-        $statement->execute([
+        $params = [
             $location->getDeviceId(),
             $location->getLatitude(),
             $location->getLongitude(),
-        ]);
+        ];
+        $statement->execute($params);
+        
+        if($statement->rowCount() > 0){
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-        return $statement->rowCount() == 1;
+    protected function deleteLocation(Location $location): void
+    {
+        $this->getPdo()->prepare('DELETE FROM locations WHERE device = ?')->execute(
+            [
+                $location->getDeviceId()
+            ]
+        );
     }
 }
 

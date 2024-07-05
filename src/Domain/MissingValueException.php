@@ -1,6 +1,6 @@
 <?php
 declare(Strict_types=1);
-namespace test\Domain;
+namespace Juan\Test\Domain;
 
 final class MissingValueException extends \Expection
 {
