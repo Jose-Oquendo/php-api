@@ -17,7 +17,8 @@
     "minimum-stability": "stable",
     "require": {
         "symfony/dotenv": "^6.0",
-        "robmorgan/phinx": "^0.14.0"
+        "robmorgan/phinx": "^0.14.0",
+        "php-di/php-di": "^7.0"
     },
     "scripts": {
         "phinx-create": "./vendor/bin/phinx --configuration=\"./config/phinx.php\" create ",
