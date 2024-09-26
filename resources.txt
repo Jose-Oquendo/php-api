@@ -5,3 +5,6 @@ Copyright (c) The PHP Group
 Zend Engine v4.0.10, Copyright (c) Zend Technologies
 
 Using version ^6.0 for symfony/dotenv
+Using version ^6.0 for symfony/http-foundation
+Using version ^6.0 for symfony/http-client
+Using version ^6.0 for symfony/routing

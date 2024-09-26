@@ -5,7 +5,7 @@
     "license": "propietary",
     "autoload": {
         "psr-4": {
-            "Juan\\Test\\": "src/"
+            "Api\\Test\\": "src/"
         }
     },
     "authors": [
@@ -16,6 +16,9 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "symfony/dotenv": "^6.0"
+        "symfony/dotenv": "^6.0",
+        "symfony/http-foundation": "^6.0",
+        "symfony/http-client": "^6.0",
+        "symfony/routing": "^6.0"
     }
 }
